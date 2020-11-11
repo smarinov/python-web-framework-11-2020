@@ -1,0 +1,14 @@
+{% extends 'common/base/base.html' %}
+{% load static %}
+
+{% block site_heading %}All Pythons {% endblock %}
+{% block site_contet %}
+    <div class="d-flex p-3">
+        {% for python in pythons %}
+            {% include 'partials/python_details.html' with python=python %}
+        {% endfor %}
+    </div>
+    <div class="card-footer navbar-dark bg-dark footer fixed-bottom text-center">
+        <small class="text-light text-center">Templates Advanced Exercise @SoftUni</small>
+    </div>
+{% endblock %}
