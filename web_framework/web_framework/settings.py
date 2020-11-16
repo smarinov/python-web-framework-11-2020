@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'resources',
     'templates_advanced',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,8 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = ''
+STATIC_ROOT = '/tmp/static'
 STATICFILES_DIRS = (
     join(BASE_DIR, 'static'),
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = join(BASE_DIR, 'media')
