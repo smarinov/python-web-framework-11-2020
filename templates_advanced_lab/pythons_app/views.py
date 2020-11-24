@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
+from pythons_core.decorators import group_required
 from .forms import PythonCreateForm
 from .models import Python
 
@@ -9,6 +12,8 @@ def index(req):
     return render(req, 'index.html', {'pythons': pythons})
 
 
+# @login_required(login_url='login user')
+@group_required(groups=['Regular User'])
 def create(req):
     if req.method == 'GET':
         form = PythonCreateForm()
