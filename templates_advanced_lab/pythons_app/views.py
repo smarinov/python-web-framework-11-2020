@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from pythons_core.decorators import group_required
@@ -7,22 +8,33 @@ from .models import Python
 
 
 # Create your views here.
-def index(req):
+def index(request):
     pythons = Python.objects.all()
-    return render(req, 'index.html', {'pythons': pythons})
+    for python in pythons:
+        python.can_edit = python.created_by_id == request.user.id
+    context = {
+        'pythons': pythons,
+    }
+    return render(request, 'index.html', context)
 
 
-# @login_required(login_url='login user')
-@group_required(groups=['Regular User'])
-def create(req):
-    if req.method == 'GET':
+@login_required
+# @group_required(groups=['Regular User'])
+def create(request):
+    if request.method == 'GET':
         form = PythonCreateForm()
-        return render(req, 'create.html', {'form': form})
+        return render(request, 'create.html', {'form': form})
     else:
-        data = req.POST
-        form = PythonCreateForm(data, req.FILES)
+        data = request.POST
+        form = PythonCreateForm(data, request.FILES)
         # print(form)
         if form.is_valid():
-            python = form.save()
+            python = form.save(commit=False)
+            python.created_by = request.user
             python.save()
             return redirect('index')
+        else:
+            context = {
+                'form': form,
+            }
+            return render(request, 'create.html', context)

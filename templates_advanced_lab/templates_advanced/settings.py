@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',
     'pythons_auth',
     'pythons_app',
     'django.contrib.admin',
@@ -126,3 +127,4 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = join(BASE_DIR, 'media')
+LOGIN_URL = '/auth/login/'

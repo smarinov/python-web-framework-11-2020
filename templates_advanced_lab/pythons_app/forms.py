@@ -10,4 +10,4 @@ class PythonCreateForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}),
             'image': forms.FileInput(attrs={'class': 'custom-file-input'}),
         }
-        fields = '__all__'
+        exclude = ['created_by', ]

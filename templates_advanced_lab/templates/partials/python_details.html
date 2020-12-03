@@ -3,5 +3,8 @@
     <div class="card-body">
         <h5 class="card-title">{{ python.name }}</h5>
         <p class="card-text">{{ python.description }}</p>
+        {% if python.can_edit %}
+            <button class="btn btn-danger">Delete</button>
+        {% endif %}
     </div>
 </div>
